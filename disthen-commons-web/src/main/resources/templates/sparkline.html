@@ -1,0 +1,132 @@
+<!-- 小柱状图 -->
+<div th:fragment="sparkline_one(linkurl,params)">
+	<span class="sparkline_one" style="height: 160px;">
+	        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+	 </span>
+     <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		param:result.data
+	            	}
+	            	$.sparkline_one(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 小区域图 -->
+<div th:fragment="sparkline_area(linkurl,params)">
+	<span class="sparkline_area" style="height: 160px;">
+        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+    </span>
+    <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		param:result.data
+	            	}
+	            	$.sparkline_area(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 小折线图 -->
+<div th:fragment="sparkline_line(linkurl,params)">
+	<span class="sparkline_line" style="height: 160px;">
+		<canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+	</span>
+	<script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		param:result.data
+	            	}
+	            	$.sparkline_line(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 小饼图 -->
+<div th:fragment="sparkline_pie(linkurl,params)">
+	<span class="sparkline_pie" style="height: 160px;">
+	     <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+	 </span>
+	 <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		param:result.data
+	            	}
+	            	$.sparkline_pie(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+<!-- 小点状图图 -->
+<div th:fragment="sparkline_discreet(linkurl,params)">
+	<span class="sparkline_discreet" style="height: 160px;">
+        <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+    </span>
+    <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		param:result.data
+	            	}
+	            	$.sparkline_discreet(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+
+
+

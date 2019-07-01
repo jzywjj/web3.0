@@ -1,0 +1,242 @@
+<!-- 日期选项 -->
+<div th:fragment="reportrange">
+	<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+         <span>December 30, 2018 - January 28, 2019</span> <b class="caret"></b>
+	</div>
+</div>
+
+<!-- 表格插件 -->
+<div th:fragment="table(id)">
+    <div class="container-div">
+		<div class="row">
+	        <div class="col-sm-12 select-table table-striped">
+	        	<form th:id="online-form+${id}">
+					<div class="select-list" th:id="selectList+${id}">
+					</div>
+				</form>
+		        <div class="btn-group-sm hidden-xs" th:id="${id}+Toolbar" role="group">
+					<a class="btn btn-info" data-toggle="modal" th:data-target=".addTableModal+${id}" onclick="addTable()">
+						<i class="fa fa-plus"></i> 新增
+					</a>
+					<a class="btn btn btn-primary disabled" onclick="editTable()">
+						<i class="fa fa-edit"></i> 修改
+					</a>
+					<a class="btn btn-danger disabled" onclick="deleteTable()">
+						<i class="fa fa-remove"></i> 删除
+					</a>
+				</div>
+			    <table th:id="${id}" data-mobile-responsive="true" class="table table-bordered" data-show-columns="true"></table>
+			</div>
+		</div>
+	</div>
+	<div th:class="addTableModal+${id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+              </button>
+              <h4 class="modal-title" th:id="myModalLabel+${id}">添加</h4>
+            </div>
+              <form class="form-horizontal m" th:id="addForm+${id}">
+			  </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" id="addSave" >保存</button>
+            </div>
+
+          </div>
+        </div>
+    </div>
+	<script th:inline="javascript">
+	 	$(function () {
+	 		var id = [[${id}]];
+	 		$(".addTableModal"+id).addClass("modal");
+	 		$(".addTableModal"+id).addClass("fade");
+		});
+     </script>
+</div>
+
+<!-- 树插件 -->
+<div th:fragment="tree(linkurl,func)">
+	<div class="box-header">
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
+			<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
+			<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
+		</div>
+	</div>
+	<div class="ui-layout-content">
+		<div id="tree" class="ztree"></div>
+	</div>
+	<script th:inline="javascript">
+	    var obj = null;
+	 	$(function () {
+	 		queryTree();
+			$('#btnExpand').click(function() {
+				$._tree.expandAll(true);
+			    $(this).hide();
+			    $('#btnCollapse').show();
+			});
+			
+			$('#btnCollapse').click(function() {
+				$._tree.expandAll(false);
+			    $(this).hide();
+			    $('#btnExpand').show();
+			});
+			
+			$('#btnRefresh').click(function() {
+				queryTree();
+			});
+	
+		});
+	 	
+	 	function queryTree(){
+	 		var linkurl = [[${linkurl}]];
+	 		var func = [[${func}]];
+			var options = {
+		        url: linkurl,
+		        expandLevel: 2,
+		        onClick : eval(func)
+		    };
+	 		$.tree.init(options);
+	 	}
+     </script>
+</div>
+
+<!-- treeTable插件 -->
+<div th:fragment="treeTable(linkurl,showParam)">
+	<div class="btn-group-sm hidden-xs" id="toolbar">
+         <a class="btn btn-info" id="expandAllBtn">
+             <i class="fa fa-exchange"></i> 展开/折叠
+         </a>
+	 </div>
+	 <div class="col-sm-12 select-table table-striped">
+         <table id="bootstrap-tree-table" data-mobile-responsive="true"></table>
+     </div>
+     <script th:inline="javascript">
+     var obj = null;
+	 	$(function () {
+	 		var linkurl = [[${linkurl}]];
+	     	var sp = [[${showParam}]];
+	     	var options = {
+	     			code: "id",
+			        parentCode: "parentId",
+			        uniqueId: "id",
+			        url: linkurl
+			};
+	     	if(sp != null && sp != ""){
+	     		var showParam = eval('(' + sp + ')');
+	     		var columns = getTreeColumns(showParam);
+	     		options.columns=columns;
+	     		$.treeTable.init(options);
+	     	}else{
+	     		$.modal.alertError("显示列不能为空");
+	     	}
+	
+		});
+	 	function getTreeColumns(showParam){
+	 		var columns = [{field: 'selectItem', radio: true}];
+	 		for(var key in showParam){
+	 			var param = {
+	 				field:key,
+	 				title:showParam[key]
+	 			};
+	 			columns.push(param);
+	 			
+	 		}
+	 		return columns;
+	 	}
+     </script>
+</div>
+
+<!-- select插件 -->
+<div th:fragment="select(id,linkurl,params,showAll)">
+	<select th:id="${id}" class="form-control">
+    </select>
+    <script th:inline="javascript">
+     	var obj = null;
+	 	$(function () {
+	 		var id = [[${id}]];
+	 		var linkurl = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var showAll = [[${showAll}]];
+	     	var str = '';
+	     	if(showAll == "true"){
+	     		str += '<option value="">所有</option>';
+	     	}
+	     	if(params !=null && params != ""){
+	     		obj = eval('(' + params + ')');
+	     	}
+	     	var param = getParams();
+	     	$.ajax({
+	            type: "POST",
+	            url: linkurl,
+	            dataType: "json",
+	            data:param,
+	            async:false,
+	            success: function(data){
+                    $.each(data, function(i, dataObj){
+                    	str += '<option value="'+dataObj.id+'">'+dataObj.name+'</option>';
+                    });
+                    $('#'+id).html(str);
+	            }
+	        });
+		});
+	 	
+	 	function getParams() {
+	 		var param = {};
+	 		for(var key in obj){
+	 			param[key]=obj[key];
+	 		}
+	 		return param;
+		}
+     </script>
+</div>
+
+<!-- selectMany插件 -->
+<div th:fragment="selectMany(id,linkurl,params)">
+	<select th:id="${id}" class="form-control select2-hidden-accessible" multiple="">
+    </select>
+    <script th:inline="javascript">
+     	var obj = null;
+	 	$(function () {
+	 		var id = [[${id}]];
+	 		var linkurl = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var showAll = [[${showAll}]];
+	     	var str = '';
+	     	if(showAll == "true"){
+	     		str += '<option value="">所有</option>';
+	     	}
+	     	if(params !=null && params != ""){
+	     		obj = eval('(' + params + ')');
+	     	}
+	     	var param = getParams();
+	     	$.ajax({
+	            type: "POST",
+	            url: linkurl,
+	            dataType: "json",
+	            data:param,
+	            async:false,
+	            success: function(data){
+                    $.each(data, function(i, dataObj){
+                    	str += '<option value="'+dataObj.id+'">'+dataObj.name+'</option>';
+                    });
+                    $('#'+id).html(str);
+	            }
+	        });
+		});
+	 	
+	 	function getParams() {
+	 		var param = {};
+	 		for(var key in obj){
+	 			param[key]=obj[key];
+	 		}
+	 		return param;
+		}
+     </script>
+</div>
+
+

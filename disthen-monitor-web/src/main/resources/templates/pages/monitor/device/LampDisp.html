@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+  <body>
+	<div class="container-fluid">  
+	  <div class="row">
+	       <div class="col-sm-4 col-md-4 col-lg-4" style="height:500px;padding-left:100px">
+	       <p id="id" style="display:none" name="id" th:text="${id}" />
+	        <table border="0" style="position: fixed;bottom: 5px;">
+	        
+	          <tr>
+	             <td width="50%" rowspan="2"><img id="lampImg" width="150px" height="150px" th:src="@{/img/cover/Light-off.png}"/></td>
+	             <td width="50%" align="left" valign="top">
+	                 <a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	                 <div id="statusInfo" style="font-weight: bold;"></div>
+	                 <span><b>照明状态：</b></span><span id="lampstatus" style="font-weight: bold;"></span><br>
+	  	    	</td>
+	          </tr>
+	          <tr>
+	          	<td width="100%" align="right">
+	                <a id="onLink"  style="display:block">开灯</a>
+	  	    		<a id="offLink" style="display:none">关灯 </a>
+	  	    	</td>
+	          </tr>
+	       </table>
+	     </div>
+	     <div class="col-sm-8 col-md-8 col-lg-8">
+	         <div id="otherInfo" style="margin-top: 120px"></div>
+	     </div>
+	  </div>
+	</div> 
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/echarts.min.js}"></script>
+	<script th:src="@{/js/monitor/device/lamp.js}"></script>
+  </body>
+</html>

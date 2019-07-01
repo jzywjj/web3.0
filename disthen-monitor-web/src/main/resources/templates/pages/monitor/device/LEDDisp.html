@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- <html>
+  <head>
+    <title>LED界面</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+     <link href="${ctx}/static/css/monitor/3.3.5/bootstrap.css" rel="stylesheet" type="text/css">
+     <link rel="stylesheet" type="text/css" id="theme" href="${ctx}/plugins/jquery-easyui-theme/gray/easyui.css" />
+	 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/jquery-easyui-theme/icon.css" />
+	 <script type="text/javascript" src="${ctx}/plugins/jquery/2.0.3/jquery.min.js"></script>
+	 <script type="text/javascript" src="${ctx}/plugins/easyui/jquery.easyui.min.js"></script>
+	 <script type="text/javascript" src="${ctx}/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+	 
+	 <script src="${ctx}/static/js/monitor/device/led.js"></script>
+     <style>
+     	.LED-preview{font-family: 'fz16';font-size:72px;font-weight: 100;border:6px solid #333333;background-color: #666666;color:#FF0000;padding:8px; }
+     </style>
+  </head> -->
+  <html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/libs/jquery-easyui-theme/gray/easyui.css}" rel="stylesheet"/>	
+	<link th:href="@{/libs/jquery-easyui-theme/icon.css}" rel="stylesheet"/>
+  
+  <style>
+     	.LED-preview{font-family: 'fz16';font-size:72px;font-weight: 100;border:6px solid #333333;background-color: #666666;color:#FF0000;padding:8px; }
+     </style>
+  <body>
+	<div class="container-fluid">  
+	  <div class="row">
+	     <div class="col-xs-12 col-md-12 col-lg-12">
+	       <p id="id" style="display:none" name="id" th:text="${id}" />
+	        <table border="0" width="100%">
+	         <tr>
+	           		<td align="center" width="100%">
+	           		<div class="LED-preview" id="LEDpreview">
+	           			<marquee align="left" behavior="scroll" direction="left" loop="-1" scrollamount="6" scrolldelay="20"><div id="disptext"></div></marquee>
+	           		</div>
+	           		</td>
+	          </tr>
+	          <tr>
+	          	<td width="100%" align="center"><br/>
+	          		<div id="p" class="easyui-panel" title="自定义LED显示内容" 
+					        style="width:400px;height:130px;padding:10px;background:#fafafa;"
+					        data-options="iconCls:'',closable:false, collapsible:false,minimizable:false,maximizable:false">
+					    	<select id="textSelect" class="easyui-combobox" name="textSelect" style="width:300px;height:30px;">
+							    <option value=""></option>
+							    <option value="正在施工，危险！">正在施工，危险！</option>
+							    <option value="高压危险！">高压危险！</option>
+							    <option value="请勿进入！">请勿进入！</option>
+							</select>
+							<div style="text-align:right">
+								<br/>
+								<a id="previewBtn" href="#" onclick="javascript:preview()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">预览</a>
+								<a id="setInfoBtn" href="#" onclick="javascript:setInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">设置</a>
+								<a id="cleanBtn" href="#" onclick="javascript:clean()" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">清除</a>
+							</div>
+							<a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+					</div>
+	            </td>
+	          </tr>
+	          
+	       </table>
+	     </div>
+	  </div>
+	</div> 
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/monitor/device/led.js}"></script>
+	<script th:src="@{/libs/easyui/jquery.easyui.min.js}"></script>
+	<script th:src="@{/libs/easyui/locale/easyui-lang-zh_CN.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- <html>
+  <head>
+    <title>电控锁盖板监控界面</title>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+     <link href="${ctx}/static/css/monitor/3.3.5/bootstrap.css" rel="stylesheet" type="text/css">
+     <link href="${ctx}/static/css/monitor/cmdbtn.css" rel="stylesheet" type="text/css"/>
+     <link rel="stylesheet" type="text/css" id="theme" href="${ctx}/plugins/jquery-easyui-theme/${theme}/easyui.css" />
+	 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/jquery-easyui-theme/icon.css" />
+     <script src="${ctx}/plugins/jquery/2.0.3/jquery.js"></script>
+     <script type="text/javascript" src="${ctx}/plugins/easyui/jquery.easyui.min.js"></script>
+	 <script type="text/javascript" src="${ctx}/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+  </head>
+   -->
+   
+   <html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+  
+  <body>
+	<div class="container-fluid">  
+	  <div class="row">
+	     <div class="col-xs-12 col-md-12 col-lg-12">
+	        <table border="0">
+	          <tr>
+	             <td width="50%" rowspan="2">
+	             	<img id="doorImg" width="200px" height="200px" th:src="@{/img/obord-off.png}"/></td>
+	             <td width="50%" align="left" valign="top">
+	                 <a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	                 <div id="statusInfo"><b>当前状态:离线</b></div>
+	                 <span><b>盖板状态：</b></span><span id="doorstatus"><b>未安装</b></span><br>
+	  	    	</td>
+	          </tr>
+	          <tr>
+	          	<td width="100%" align="right">
+	                <a id="openLink" onclick="sendCoverCommand('open')" style="display:none">开门</a>
+	  	    		<a id="closeLink" onclick="sendCoverCommand('close')" style="display:none">关门 </a>
+	  	    	</td>
+	          </tr>
+	       </table>
+	     </div>
+	  </div>
+	</div> 
+	<div id="addDialog" class="easyui-dialog" data-options="closed:true,modal:true" style="width:200px;height:120px;">
+		<table class="formTable" align="center" style="margin: 5px;">
+			<tr>
+				<td width="50">口令：</td>
+				<td width="120">
+					<input id="password" name="password" type="password" class="easyui-textbox" required="true" data-options="width: 100"/> 
+				</td>
+			</tr>
+		</table>
+	</div>
+    <div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/monitor/device/lockboard.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+  
+  <body>
+  <div class="row content-tabs">
+	     <nav class="page-tabs menuTabs">
+	         <div class="page-tabs-content" onclick="myframe();">
+	             <a href="javascript:;" class="active menuTab">照明</a>
+	         </div>
+	         <div class="page-tabs-content"  onclick="dataframe();">
+	             <a href="#" class="active menuTab">历史数据</a>                    
+	         </div>
+	         <div class="page-tabs-content" onclick="eventframe();">
+	             <a href="#" class="active menuTab">事件数据</a>
+	         </div>
+	         <div class="page-tabs-content" onclick="alarmframe();">
+	             <a href="#" class="active menuTab">告警数据</a>
+	         </div>                
+	     </nav>            
+	  </div>
+  		<div  ng-controller="LampDataCtrl">
+  			 <div class="row" id="row1">
+  			 	<div class="col-md-12"><iframe id="myframe" th:src="${id}" frameborder="0" scrolling="no"
+	  	    			marginheight="0" marginwidth="0" width="100%" height="500px"></iframe>
+				</div>
+	  	     </div>
+			 <div class="row" id="row2" style="display:none">					
+		 		<div class="col-md-12 col-lg-12">
+		 			 <iframe id="alarmframe"  width="98%" height="600px" frameborder="0" scrolling="no"
+	 	    				marginheight="0" marginwidth="0" th:src="@{/alarmInfo}"></iframe>
+		 		</div>
+			</div>
+			<div class="row" id="row3" style="display:none">
+					<div class="col-md-12 col-lg-12">
+						 <iframe id="eventframe" width="98%" height="600px" frameborder="0" scrolling="no"
+		 	    				marginheight="0" marginwidth="0" th:src="@{/event}"></iframe>
+			 		</div>
+			 		
+			</div>
+			<div class="row"  id="row4" style="display:none">
+				<div class="col-md-12 col-lg-12">
+					 <iframe id="dataframe" width="98%" height="600px" frameborder="0" scrolling="no"
+		 	    				marginheight="0" marginwidth="0" th:src="@{/historyData}"></iframe>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function myframe(){
+				document.getElementById("row1").style.display="";//显示	
+				document.getElementById("row3").style.display="none";//隐藏		
+				document.getElementById("row2").style.display="none";//隐藏
+				document.getElementById("row4").style.display="none";//隐藏
+			}
+		
+			function eventframe(){
+				document.getElementById("row3").style.display="";//显示				
+				document.getElementById("row1").style.display="none";//隐藏				 
+				document.getElementById("row2").style.display="none";//隐藏
+				document.getElementById("row4").style.display="none";//隐藏
+			}
+			
+			function alarmframe(){
+				document.getElementById("row2").style.display="";//显示
+				document.getElementById("row3").style.display="none";//隐藏				
+				document.getElementById("row1").style.display="none";//隐藏				 
+				document.getElementById("row4").style.display="none";//隐藏
+			}
+			
+			function dataframe(){
+				document.getElementById("row4").style.display="";//显示
+				document.getElementById("row2").style.display="none";//隐藏
+				document.getElementById("row3").style.display="none";//隐藏				
+				document.getElementById("row1").style.display="none";//隐藏				 
+				
+			}
+		</script>
+  </body>
+</html>

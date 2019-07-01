@@ -1,0 +1,223 @@
+<!DOCTYPE>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<style>
+			html,body{text-align:center;}
+			canvas,x3d{border:none;}
+			
+		</style>
+	<body>
+	<a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	<p id="id" style="display:none" name="id" th:text="${id}" />
+	<div id="statusInfo" style="position: fixed;bottom: 150px;padding-left: 140px;font-weight: bold;"></div>
+	<div id="axiang" style="position: fixed;bottom: 150px;padding-left: 260px;font-weight: bold;color:red"></div>
+	<div id="bxiang" style="position: fixed;bottom: 150px;padding-left: 400px;font-weight: bold;color:red"></div>
+	<div id="cxiang" style="position: fixed;bottom: 150px;padding-left: 540px;font-weight: bold;color:red"></div>
+	<div style="position: fixed;bottom: 0;padding-left: 250px">
+	<img  th:src="@{/img/cover/mdgs.png}" style="height:150px;width:300px;">
+		<!-- <X3D id="box" showLog="false" x="0px" y="0px" >
+			<scene>
+	<background skyColor=".941 .973 1"></background>
+	<Viewpoint DEF="Viewpoint1" position="0 0 11"></Viewpoint>
+	<transform translation="-7 3 0">
+      <shape>
+        <appearance>
+          <material diffuseColor="0 0 1"></material>
+        </appearance>
+        <text string="A相" solid="false">
+            <fontstyle size="80"></fontstyle>
+        </text>
+      </shape>
+	</transform>
+	<transform translation="-7 0 0">
+      <shape>
+        <appearance>
+          <material diffuseColor="0 0 1"></material>
+        </appearance>
+        <text string="B相" solid="false">
+            <fontstyle size="80"></fontstyle>
+        </text>
+      </shape>
+	</transform>
+	<transform translation="-7 -3 0">
+      <shape>
+        <appearance>
+          <material diffuseColor="0 0 1"></material>
+        </appearance>
+        <text string="C相" solid="false">
+            <fontstyle size="80"></fontstyle>
+        </text>
+      </shape>
+	</transform>
+
+	<transform translation="0 3 0" rotation="0 0 1 1.571">
+		<transform DEF="TBox1" translation="0 0 0" id="tt">
+		  <shape>
+			<appearance>
+			  <material diffuseColor="blue"></material>  
+								<ImageTexture DEF="Texture" url="" class="MDTS_texture"></ImageTexture>
+								<TextureTransform rotation="1.571"></TextureTransform>
+			</appearance>
+			<cylinder top="false" bottom="false" solid="false" radius="1" height="6.28319"></cylinder>
+		  </shape>
+
+			<transform translation="0 4.14159 0">
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<Cone solid="false" bottomRadius="1" height="2"></Cone>
+			  </shape>
+			</transform>
+			<transform translation="0 -4.14159 0" rotation="0 0 1 3.14159">
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<Cone solid="false" bottomRadius="1" height="2"></Cone>
+			  </shape>
+			</transform>
+
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<cylinder solid="false" radius="0.5" height="12.28319"></cylinder>
+			  </shape>
+
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/metal.png"></ImageTexture>
+				</appearance>
+				<cylinder solid="false" radius="0.4" height="12.284"></cylinder>
+			  </shape>
+
+		</transform>
+    </transform>
+	<transform rotation="0 0 1 1.571">
+		<transform DEF="TBox2" translation="0 0 0" id="tt">
+		  <shape>
+			<appearance>
+			  <material diffuseColor="blue"></material>  
+								<ImageTexture DEF="Texture" url="" class="MDTS_texture"></ImageTexture>
+								<TextureTransform rotation="1.571"></TextureTransform>
+			</appearance>
+			<cylinder top="false" bottom="false" solid="false" radius="1" height="6.28319"></cylinder>
+		  </shape>
+
+			<transform translation="0 4.14159 0">
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<Cone solid="false" bottomRadius="1" height="2"></Cone>
+			  </shape>
+			</transform>
+			<transform translation="0 -4.14159 0" rotation="0 0 1 3.14159">
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<Cone solid="false" bottomRadius="1" height="2"></Cone>
+			  </shape>
+			</transform>
+
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<cylinder solid="false" radius="0.5" height="12.28319"></cylinder>
+			  </shape>
+
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/metal.png"></ImageTexture>
+				</appearance>
+				<cylinder solid="false" radius="0.4" height="12.284"></cylinder>
+			  </shape>
+		</transform>
+    </transform>
+	<transform translation="0 -3 0" rotation="0 0 1 1.571">
+		<transform DEF="TBox3" translation="0 0 0" id="tt">
+		  <shape>
+			<appearance>
+			  <material diffuseColor="blue"></material>  
+								<ImageTexture DEF="Texture" url="" class="MDTS_texture"></ImageTexture>
+								<TextureTransform rotation="1.571"></TextureTransform>
+			</appearance>
+			<cylinder top="false" bottom="false" solid="false" radius="1" height="6.28319"></cylinder>
+		  </shape>
+
+			<transform translation="0 4.14159 0">
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<Cone solid="false" bottomRadius="1" height="2"></Cone>
+			  </shape>
+			</transform>
+			<transform translation="0 -4.14159 0" rotation="0 0 1 3.14159">
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<Cone solid="false" bottomRadius="1" height="2"></Cone>
+			  </shape>
+			</transform>
+
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/rubber.png"></ImageTexture>
+				</appearance>
+				<cylinder solid="false" radius="0.5" height="12.28319"></cylinder>
+			  </shape>
+
+			  <shape>
+				<appearance>
+				  <material diffuseColor="blue"></material>  
+				  <ImageTexture DEF="Texture" url="../../../libs/x3dom/metal.png"></ImageTexture>
+				</appearance>
+				<cylinder solid="false" radius="0.4" height="12.284"></cylinder>
+			  </shape>
+
+		</transform>
+    </transform>
+
+<TimeSensor DEF="TS" loop="true" cycleInterval="10"></TimeSensor>
+				
+				<OrientationInterpolator DEF="OI" key="0 0.5 1" keyValue="0 1 0 0, 0 1 0 3.14159, 0 1 0 6.28318"></OrientationInterpolator>
+
+				<ROUTE fromNode="TS" fromField="fraction_changed" toNode="OI" toField="set_fraction"></ROUTE>
+				<ROUTE fromNode="OI" fromField="value_changed" toNode="TBox1" toField="rotation"></ROUTE>  
+				<ROUTE fromNode="OI" fromField="value_changed" toNode="TBox2" toField="rotation"></ROUTE>  
+				<ROUTE fromNode="OI" fromField="value_changed" toNode="TBox3" toField="rotation"></ROUTE>  
+	</scene>
+		</X3D> -->
+		
+	</div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	
+	<!-- bootstrap-table 表格插件 -->
+	<script th:src="@{/libs/bootstrap-table/bootstrap-table.min.js}"></script>
+	<script th:src="@{/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+	<script th:src="@{/libs/bootstrap-table/extensions/mobile/bootstrap-table-mobile.min.js}"></script>
+	<script th:src="@{/libs/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js}"></script>
+	<script th:src="@{/libs/x3dom/x3dom-full.js}"></script>
+	<script th:src="@{/js/monitor/device/common.js}"></script>
+	<script th:src="@{/js/monitor/device/mdts3D.js}"></script>
+	</body>
+</html>

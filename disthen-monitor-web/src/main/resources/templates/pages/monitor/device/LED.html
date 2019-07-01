@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+  
+  <body>
+  <div class="row content-tabs">
+	     <nav class="page-tabs menuTabs">
+	         <div class="page-tabs-content" onclick="myframe();">
+	             <a href="javascript:;" class="active menuTab">LED</a>
+	         </div>	         
+	         <div class="page-tabs-content" onclick="alarmframe();">
+	             <a href="#" class="active menuTab">告警数据</a>
+	         </div>                
+	     </nav>            
+	  </div>
+  	<div ng-controller="LEDDataCtrl">
+ 		 <div class="row" id="row1">
+ 			<div class="col-md-12 col-lg-12"><iframe id="myframe" th:src="${id}" frameborder="0" scrolling="no"
+  	    			marginheight="0" marginwidth="0" width="100%" height="300px"></iframe>
+			</div>
+			<div class="col-md-1 col-lg-1"></div>
+  	     </div>
+		 <div class="row" id="row2" style="display:none">
+		 	
+	 		<div class="col-md-12 col-lg-12">
+	 			 <iframe id="alarmframe"  width="100%" height="300px" frameborder="0" scrolling="no"
+ 	    				marginheight="0" marginwidth="0" th:src="@{/alarmInfo}"></iframe>
+	 		</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+			function myframe(){
+				document.getElementById("row1").style.display="";//显示	
+				document.getElementById("row2").style.display="none";//隐藏
+			}
+					
+			function alarmframe(){
+				document.getElementById("row2").style.display="";//显示
+				document.getElementById("row1").style.display="none";//隐藏				 
+				
+			}
+		</script>
+  </body>
+</html>

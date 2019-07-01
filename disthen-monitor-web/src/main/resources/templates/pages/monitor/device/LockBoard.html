@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+  
+  <body>
+  		<div ng-controller="LockBoardDataCtrl">
+  			 <div class="row">
+  			 	<div class="col-md-6 col-lg-6"><iframe id="myframe" th:src="@{/LockBoardDisp}" frameborder="0" scrolling="no"
+	  	    			marginheight="0" marginwidth="0" width="98%" height="300px"></iframe>
+	  	     	</div>
+	  	     	<div class="col-md-6 col-lg-6">
+					 <iframe id="dataframe" width="98%" height="300px" frameborder="0" scrolling="no"
+	  	    				marginheight="0" marginwidth="0" th:src="@{/historyData}"></iframe>
+				</div>
+	  	     </div>
+			 <div class="row">
+					<div class="col-md-6 col-lg-6">
+						 <iframe id="eventframe" width="98%" height="300px" frameborder="0" scrolling="no"
+	  	    				marginheight="0" marginwidth="0" th:src="@{/event}"></iframe>
+			 		</div>
+			 		<div class="col-md-6 col-lg-6">
+			 			 <iframe id="alarmframe"  width="98%" height="300px" frameborder="0" scrolling="no"
+	  	    				marginheight="0" marginwidth="0" th:src="@{/alarmInfo}"></iframe>
+			 		</div>
+			</div>
+		</div>
+  </body>
+</html>

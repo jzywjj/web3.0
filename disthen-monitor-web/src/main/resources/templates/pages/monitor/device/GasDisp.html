@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+  <body>
+	<div style="padding-top:15px">  
+	  <div class="row">
+	     <div class="col-sm-3 col-md-3 col-lg-3">
+	        <div id="O2">O2 </div>
+	         
+	     </div>
+	     <div class="col-sm-3 col-md-3 col-lg-3">
+	        <div id="CH4">CH4</div>
+	        <a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	     </div>
+	     <div class="col-sm-3 col-md-3 col-lg-3">
+	        <div id="H2S">H2S</div>
+	     </div>
+	     <div class="col-sm-3 col-md-3 col-lg-3">
+	        <div id="CO">CO</div>
+	     </div>
+	  </div>
+	  <div class="row">
+	  		<div class="col-sm-12 col-md-12 col-lg-12" style="padding-top: 1px; padding-left: 100px">
+	  		<p id="id" style="display:none" name="id" th:text="${id}" />
+	  			<div id="statusInfo" style="font-size:large;font-weight: bold;"></div>
+	  			<div id="gslines" style="display:none"></div>
+	  		</div>
+			<!-- <div class="col-sm-6 col-md-6 col-lg-6">
+					 <iframe id="dataframe" frameborder="0" scrolling="no"
+	  	    				marginheight="0" marginwidth="0" th:src="@{/historyData}"></iframe>
+			</div> -->
+	  </div>
+	</div> 
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/echarts.min.js}"></script>
+	<script th:src="@{/js/esl.js}"></script>
+	<script th:src="@{/js/monitor/device/gas.js}"></script>
+    <script th:inline="javascript">
+    	var dark;
+    	require(['@{/js/dark.js}'], function(theme) {
+			dark = theme;
+		});
+    </script>
+  </body>
+</html>

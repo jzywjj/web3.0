@@ -1,0 +1,65 @@
+#openLink{ 
+	display:block;/*因为标签a是内链元素，所以利用这句话将内链元素转化成块状元素，后面的width和height才起作用*/ 
+	width:80px; 
+	height:41px; 
+	margin:0 auto; 
+	color:transparent;  
+	text-align:right;
+	text-decoration:none;
+	background:url(images/unlocked.png) no-repeat;
+}
+
+#openLink:hover{ 
+	opacity: 0.9;  
+    color: black;  
+    
+}
+
+#closeLink{
+	display:block;/*因为标签a是内链元素，所以利用这句话将内链元素转化成块状元素，后面的width和height才起作用*/ 
+	width:80px; 
+	height:41px; 
+	margin:0 auto; 
+	color:transparent;  
+	text-align:right;
+	text-decoration:none;
+	background:url(images/locked.png) no-repeat;  
+}
+
+#closeLink:hover{ 
+	opacity: 0.9;  
+    color: black;  
+    
+}
+
+#onLink{ 
+	display:block;/*因为标签a是内链元素，所以利用这句话将内链元素转化成块状元素，后面的width和height才起作用*/ 
+	width:110px; 
+	height:41px; 
+	margin:0 auto; 
+	color:transparent;  
+	text-align:right;
+	text-decoration:none;
+	background:url(images/off.png) no-repeat;
+}
+
+#onLink:hover{ 
+	opacity: 0.9;  
+    color: black; 
+}
+
+#offLink{
+	display:block;/*因为标签a是内链元素，所以利用这句话将内链元素转化成块状元素，后面的width和height才起作用*/ 
+	width:110px; 
+	height:41px; 
+	margin:0 auto; 
+	color:transparent;  
+	text-align:right;
+	text-decoration:none;
+	background:url(images/on.png) no-repeat; 
+}
+
+#offLink:hover{ 
+	opacity: 0.9;  
+    color: black;  
+}

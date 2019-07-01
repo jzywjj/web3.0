@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+  <body>
+	<div>  
+	  <div class="row">
+	     <div class="col-sm-12 col-md-12 col-lg-12" style="display:none">
+	       	 <div id="todayInfo" style="margin-top: 10px;"></div>
+	     </div>
+	  </div>
+	</div> 
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/echarts.min.js}"></script>
+	<script th:src="@{/js/monitor/device/mdts.js}"></script>
+  </body>
+</html>

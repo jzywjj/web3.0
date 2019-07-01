@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+  
+  <body>
+	<div class="container-fluid">  
+	  <div class="row">
+	     <div class="col-xs-12 col-md-12 col-lg-12" style="text-align:center;padding-top:150px">
+	     	<p id="id" style="display:none" name="id" th:text="${id}" />
+	        <table border="0" style="margin:auto">
+	          <tr>
+	             <td width="50%" rowspan="2"><img id="infraredImg" width="200px" height="200px" th:src="@{/img/cover/IR_normal.png}"/></td>
+	             <td width="50%" align="left" valign="top">
+	             	 <a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	             	 <div id="statusInfo" style="font-weight: bold;">  </div>
+	                 <span><b>红外状态：</b></span><span id="infraredstatus" style="font-weight: bold;"></span><br>
+	  	    	</td>
+	          </tr>
+	       </table>
+	     </div>
+	  </div>
+	</div> 
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/monitor/device/infrared.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<style>
+	.warImg{
+		width:180px;height: 150px;
+		margin-top: 10px;
+		margin-left: -10px;
+		margin-right: -10px;
+	}
+	#warn p{
+		margin-top: 10px;
+		margin-left: 10px;
+	}
+</style>
+<body class="gray-bg">
+	<p id="id" style="display:none" name="id" th:text="${id}" />
+	<label></label>
+	<p id="neme" style="padding-left:20px;font-size:x-large;" name="neme" th:text="${name}">
+	&nbsp;&nbsp;&nbsp;
+	</p>
+    <div class="container-div">
+		<div class="row">  
+			<div class="col-sm-12 select-table table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true" class="table table-bordered"></table>
+			</div>
+	       <!-- <div class="col-sm-12" id="warn">
+					<div class="col-sm-3" style="border: 1px solid #b5afaf">
+						<div class="col-sm-6">
+							<img class="warImg" th:src="@{/img/nopic.jpg}">
+						</div>
+						<div class="col-sm-6">
+							<p>迪森测试线路I号</p>
+							<a class="btn btn-primary btn-edit">
+								<i class="fa"></i> 开启
+							</a>
+							<a class="btn btn-danger btn-edit">
+								<i class="fa"></i> 关闭
+							</a>
+						</div>
+					</div>
+				</div> -->
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/libs/blockUI/jquery.blockUI.js}"></script>
+<script src="http://tajs.qq.com/stats?sId=62048022"></script>
+<script th:src="@{/ruoyi/js/ry-ui.js?v=3.1.0}"></script>
+<script th:src="@{/ruoyi/index.js}"></script>
+<script th:src="@{/libs/fullscreen/jquery.fullscreen.js}"></script>
+	<script th:inline="javascript">
+		var prefix = ctx + "pages/tunnel";
+		var ids = $("#id").text();
+		$(function() {
+			getList();
+
+		});
+		
+		function getList(){
+			$("#bootstrap-table").bootstrapTable({
+			    method: 'post',
+			    contentType: "application/x-www-form-urlencoded",
+			    cache: false,
+			    url: prefix + "/detailList",
+           		search:true,
+           		queryParams:{
+           			id:ids
+           		},
+			    columns:[
+			    	{
+			    	 	field: 'id',
+			            title: '序号',
+			    	},
+			        {
+			            field: 'name',
+			            title: '设备',
+			        },
+			        {
+			            field: 'devicetype',
+			            title: '设备类型',
+			        },{
+			            field: 'devicestatus',
+			            title: '设备状态',
+			            
+			        },{
+			            field: 'alarmstatus',
+			            title: '报警状态',
+			            
+			        },{
+			            field: 'monstatus',
+			            title: '监控状态',
+			            
+			        }
+			    ]
+			});
+			
+			
+			 $("#bootstrap-table tbody").on("click","tr",function() {
+                var td = $(this).find("td");
+                var ids = new String(td[0].innerText);
+                id = ids.substr(0,ids.length-1);
+                var type = new String(td[2].innerText);
+                type = type.substr(0,type.length-1);
+                var dataUrl = changeUrl(type,id);
+                var menuName = td[1].innerText;
+                var dataIndex = 2;
+				$.modal.openWin(menuName+"详情", dataUrl);
+				//createMenuItem(dataUrl, "详情");
+				
+            }); 
+		}
+		
+		function changeUrl(dataType,id){
+			if(dataType == "接地箱"){
+				return "/GroundBox/"+id+"/";
+			}else if(dataType == "电缆接头"){
+				return "/MDTS/"+id+"/";
+			}else if(dataType == "电子井盖"){
+				return "/Cover/"+id+"/";
+			}else if(dataType == "电控锁"){
+				return "/Door/"+id+"/";
+			}else if(dataType == "风机"){
+				return "/Fan/"+id+"/";
+			}else if(dataType == "水泵"){
+				return "/Pump/"+id+"/";
+			}else if(dataType == "照明"){
+				return "/Lamp/"+id+"/";
+			}else if(dataType == "红外"){
+				return "/Infrared/"+id+"/";
+			}else if(dataType == "LED显示屏"){
+				return "/LED/"+id+"/";
+			}else if(dataType == "气体监测"){
+				return "/Gas/"+id+"/";
+			}
+		}
+		
+		function bak(){
+			$.ajax({
+                type: "POST",
+                url: prefix + "/detailList",
+                dataType: "json",
+                data:{
+                    id:ids
+                },
+                success: function(data){
+                	var str = "";
+                    var list = data;
+                     for(let i in list) {
+                     	var img = getImage("Pump",1); 
+                     	var btn = getBtn("Cover",list[i].id); 
+				        str += '<div class="col-sm-3" style="border: 1px solid #b5afaf;">'+
+									'<div class="col-sm-6">'+img+
+										'<p style="height:93px">'+list[i].monstatus+'</p>'+
+									/**	'<a class="btn btn-info btn-edit manual" style="margin-bottom:2px" id="'+list[i].id+'">'+
+											'<i class="fa"></i> 手动'+
+										'</a> '+
+										'<a class="btn btn-success btn-edit auto" style="margin-bottom:2px" id="'+list[i].id+'">'+
+											'<i class="fa"></i> 自动'+
+										'</a>'+
+									**/
+									'</div>'+
+									'<div class="col-sm-6">'+
+										'<p style="height:120px;font-size:20px">'+list[i].name+'</p>'+
+										'<p style="font-size:15px;font-weight:bolder">'+list[i].devicestatus+'</p>'+
+										'<p style="height:75px">'+list[i].alarmstatus+'</p>'+btn+
+									'</div>'+
+								'</div>';
+				    }; 
+				    $("#warn").html(str);
+                }
+            });
+			
+			$("#warn").on("click",".openLink",function(){
+              	var id = $(this).attr('id');
+				sendCommand(1,id);
+        	});
+			
+			$("#warn").on("click",".closeLink",function(){
+				var id = $(this).attr('id');
+				sendCommand(0,id);
+			});
+			
+			$("#warn").on("click",".manual",function(){
+				var id = $(this).attr('id');
+				sendCommand(3,id);
+			});
+			
+			$("#warn").on("click",".auto",function(){
+				var id = $(this).attr('id');
+				sendCommand(2,id);
+			});
+		}
+		
+		function getImage(dataType,status){
+			if(dataType == "GroundBox"){
+				return '<img class="warImg" src="/img/warningList/groundbox.png">';
+			}else if(dataType == "MDTS"){
+				return '<img class="warImg" src="/img/warningList/mdgs.png">';
+			}else if(dataType == "Cover"){
+				var url = "";
+				if(status == 1){
+					url = "cover-on.png"
+				}else{
+					url = "cover-off.png"
+				}
+				return '<img class="warImg" src="/img/warningList/'+url+'">';
+			}else if(dataType == "Door"){
+				var url = "";
+				if(status == 1){
+					url = "door-open.png"
+				}else{
+					url = "door-close.png"
+				}
+				return '<img class="warImg" src="/img/warningList/'+url+'">';
+			}else if(dataType == "Fan"){
+				var url = "";
+				if(status == 1){
+					url = "fan-run.gif"
+				}else{
+					url = "fan-stop.png"
+				}
+				return '<img class="warImg" src="/img/warningList/'+url+'">';
+			}else if(dataType == "Pump"){
+				var url = "";
+				if(status == 1){
+					url = "pump-run.gif"
+				}else{
+					url = "pump-stop.gif"
+				}
+				return '<img class="warImg" src="/img/warningList/'+url+'">';
+			}else if(dataType == "Lamp"){
+				var url = "";
+				if(status == 1){
+					url = "Light-on.png"
+				}else{
+					url = "Light-off.png"
+				}
+				return '<img class="warImg" src="/img/warningList/'+url+'">';
+			}else if(dataType == "Infrared"){
+				var url = "";
+				if(status == 1){
+					url = "IR_alarm.png"
+				}else{
+					url = "IR_normal.png"
+				}
+				return '<img class="warImg" src="/img/warningList/'+url+'">';
+			}else if(dataType == "LED"){
+				return '<img class="warImg" src="/img/warningList/led.png">';
+			}else if(dataType == "Gas"){
+				return '<img class="warImg" src="/img/warningList/gas.png">';
+			}
+		}
+		
+		function getBtn(dataType,id){
+			if(dataType == "MDTS" || dataType == "Cover" ||dataType == "Door"||dataType == "Fan"||dataType == "Pump"||dataType == "Lamp"){
+				var str = '<a class="btn btn-primary btn-edit openLink" style="margin-bottom:5px" id="'+id+'">'+
+								'<i class="fa"></i> 开启'+
+							'</a> '+
+							'<a class="btn btn-danger btn-edit closeLink" style="margin-bottom:5px" id="'+id+'">'+
+								'<i class="fa"></i> 关闭'+
+							'</a>';
+				return str;
+			}
+			return "";
+		}
+		
+		function sendCommand(cmd,id){
+			$.ajax({
+		        type: "GET",
+		        url: "/pages/device/updateDeviceStatus/"+id+"/"+cmd+"/",
+		        async:false,
+		        success: function(data){
+		        	if(data == "true"){
+		        		if(cmd == 0){
+		        			$.modal.msgSuccess("关闭成功");
+		            	}else if(cmd == 1){
+		            		$.modal.msgSuccess("开启成功");
+		            	}else if(cmd == 2){
+		            		$.modal.msgSuccess("自动模式设置成功");
+		            	}else{
+		            		$.modal.msgSuccess("手动模式设置成功");
+		            	}
+		        	}
+		        }
+		    });
+		};
+	</script>
+</body>
+</html>

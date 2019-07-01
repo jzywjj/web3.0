@@ -1,0 +1,72 @@
+<!-- 区域图 -->
+<div th:fragment="chart_plot_01(linkurl,params)">
+	  <div id="chart_plot_01" class="demo-placeholder"></div>
+	  <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		arr_data1:result.arr_data1,
+			    		arr_data2:result.arr_data2
+	            	}
+	            	$.chart_plot_01(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 折线图 -->
+<div th:fragment="chart_plot_02(linkurl,params)">
+	  <div id="chart_plot_02" class="demo-placeholder"></div>
+	  <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            			data:result.data
+	            	}
+	            	$.chart_plot_02(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 弧线图 -->
+<div th:fragment="chart_plot_03(linkurl,params)">
+	  <div id="chart_plot_03" class="demo-placeholder"></div>
+	  <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            			data:result.data
+	            	}
+	            	$.chart_plot_03(op);
+	            }
+	        });
+		});
+     </script>
+</div>

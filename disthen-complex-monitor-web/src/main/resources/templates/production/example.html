@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+      <div th:include="include :: leftTree"></div>
+  	  <div th:include="include :: footer"></div>
+        <!-- page content -->
+        <div class="right_col" role="main">
+        	<h1> 基础操作样例 </h1>
+            <h3>字典获取样例</h3>
+           	 ${@keyChange.getDicLabel('run_status','run_status')}
+           	<div th:with="type=${@keyChange.getDicLabel('run_status','run_status')}">
+           		<input th:value="${type}">
+           	</div>
+           	 <h3>通过对象类名(首字母小写)，id,获取对象样例</h3>
+           		通过对象类名(首字母小写)，id,获取对象
+           		str=${@keyChange.getNameByObject('student','0d133c2f6f2c47c6958bae2065b8dc2c')}
+           	<div th:with="str=${@keyChange.getNameByObject('student','0d133c2f6f2c47c6958bae2065b8dc2c')}">
+           		<input th:value="${str.name}">
+           	</div>
+           	<h3>日期选择</h3>
+           	<div class="pull-left">
+           		 <div th:include="assembly :: reportrange"></div>
+           	</div>
+           	<br/>
+           	<br/>
+           	<h3>复选框样式</h3>
+           	<h2>后台查询生成复选框</h2>
+           		assembly :: select(复选框id,查询链接,'{\'参数1\':\'值\'}','是否显示所有')
+           		assembly :: select('select1','/select','{\'sex\':\'sys_user_sex#0\'}','true')
+           		<div style="width:200px;">
+           			<div th:include="assembly :: select('select1','/select','{\'sex\':\'sys_user_sex#0\'}','true')"></div>
+           		</div>
+           		
+           	<h2>后台查询生成多选复选框</h2>
+           		assembly :: selectMany(复选框id,查询链接,'{\'参数1\':\'值\'}')
+           		assembly :: selectMany('select1','/select','{\'sex\':\'sys_user_sex#0\'}')
+           		<div style="width:200px;">
+           			<div th:include="assembly :: selectMany('select2','/select','{\'sex\':\'sys_user_sex#0\'}')"></div>
+           		</div>
+           		
+           	<h2>字典生成复选框</h2>
+           		通过字典类型，查询字典的列表
+           		type=${@keyChange.getDicType('sys_user_sex')}
+           		</br>
+           		<div style="width:200px;">
+	           	<select name="sex" th:with="type=${@keyChange.getDicType('sys_user_sex')}" class="form-control">
+	                   <option value="">所有</option>
+	                   <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option> 
+	            </select>
+	            </div>
+	            
+	            <div class="col-md-2">
+	            	<label>选择日期+时间：</label>
+	            	<div class='input-group date' id='myDatepicker4'>
+		                 <input type='text' class="form-control" readonly="readonly" />
+		                 <span class="input-group-addon">
+		                    <span class="glyphicon glyphicon-calendar"></span>
+		                 </span>
+	            	 </div>
+	            </div>
+	            <div class="col-md-10" style="height:100px">
+           		</div>
+	            
+           <h3>表格样例</h3>
+           <h2>表格样例1带排序的分页</h2>
+           	<div text="table">
+           		assembly :: table(表格ID（不为空))
+           		<div th:include="assembly :: table('tableId1')"></div>
+           	</div>
+           	
+           	<h2>表格树样例</h2>
+           	<div text="tableTree">
+           		assembly :: treeTable(数据访问链接（不为空）,显示列（不为空）)
+           		<div th:include="assembly :: treeTable('/treeTable','{\'name\':\'名称\',\'address\':\'住址\'}' )"></div>
+           	</div>
+           	<br/>
+           	<br/>
+           	<h2>树样例</h2>
+           	<div text="tree" class="col-md-2">
+           		 assembly :: tree(数据访问链接（不为空）,点击事件回调方法名)
+           		<div th:include="assembly :: tree('/tree','zOnClick')"></div>
+           	</div>
+           	<div class="col-md-10" style="height:700px">
+           	</div>
+           <h1> 报表样例 </h1>
+           <div text="chart">
+           		<div class="col-md-9 col-sm-9 col-xs-12">
+           		 chart :: chart_plot_01(数据访问链接,入参)
+                 <div th:include="chart :: chart_plot_01('/chart_plot_01','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                 chart :: chart_plot_03(数据访问链接,入参)
+                 <div th:include="chart :: chart_plot_02('/chart_plot_02','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                 chart :: chart_plot_03(数据访问链接,入参) 
+                 <div th:include="chart :: chart_plot_03('/chart_plot_03','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+                </div>
+           </div>
+           <div	text="morris-charts">
+           		<!-- bar chart -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              	 morisjs :: graph_bar(数据访问链接,入参) 
+                <div th:include = "morisjs :: graph_bar('/studentList','{\'name\':\'paopao\',\'id\':\'123\'}')" ></div>
+              </div>
+              <!-- /bar charts -->
+
+              <!-- bar charts group -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+               morisjs :: graph_bar_group(数据访问链接,入参)  
+                <div th:include="morisjs :: graph_bar_group('/bigList','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+              </div>
+              <div class="clearfix"></div>
+              <!-- /bar charts group -->
+
+              <!-- bar charts group -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+               morisjs :: graphx(数据访问链接,入参) 
+                 <div th:include="morisjs :: graphx('/graphxList','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+              </div>
+              <!-- /bar charts group -->
+
+              <!-- pie chart -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                 morisjs :: graph_donut(数据访问链接,入参) 
+                  <div th:include="morisjs :: graph_donut('/graph_donut','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+              </div>
+              <!-- /Pie chart -->
+
+              <!-- graph area -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                morisjs :: graph_area(数据访问链接,入参)  
+                <div th:include="morisjs :: graph_area('/graphxList','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+              </div>
+              <!-- /graph area -->
+
+              <!-- line graph -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                morisjs :: graph_line(数据访问链接,入参) 
+                <div th:include="morisjs :: graph_line('/graph_line','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+              </div>
+              <!-- /line graph -->
+           </div>
+           <div text="sparkLine">
+            	 sparkline :: sparkline_one(数据访问链接,入参)  
+           		<div th:include="sparkline :: sparkline_one('/sparkLine','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+           		<div th:include="sparkline :: sparkline_area('/sparkLine','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+           		<div th:include="sparkline :: sparkline_line('/sparkLine','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+           		<div th:include="sparkline :: sparkline_pie('/sparkline_pie','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+           		<div th:include="sparkline :: sparkline_discreet('/sparkLine','{\'name\':\'paopao\',\'id\':\'123\'}')"></div>
+                     
+           </div>
+        </div>
+        <!-- /page content -->
+      </div>
+    </div>
+   <script th:src="@{/js/disthen-chart.js}"></script>
+   <script th:src="@{/js/disthen-morris-charts.js}"></script>
+   <script th:src="@{/js/disthen-sparkline.js}"></script>
+   <script th:src="@{/js/disthen-table.js}"></script>
+   <script type="text/javascript">
+   		$(function(){
+   			var options = [{
+	   				field:'name',
+	   				title:'姓名',
+	   				type:'String',
+	   				required:true,
+	   				query:true
+   				},{
+   					field:'myAddr',
+   					title:'住址',
+   					type:'#run_status',
+   					required:true,
+   					query:true
+   				},{
+   					field:'id',
+   					title:'ID',
+   					type:'String',
+   					required:true
+   				},{
+   					field:'sex',
+   					title:'性别',
+   					type:'#sys_user_sex',
+   					required:false,
+   					query:true
+   				},{
+   					field:'createTime',
+   					title:'创建时间',
+   					type:'Date',
+   					required:true,
+   					query:true
+   				}];
+   		    var query = {
+   		    		name:'pao4',
+   		    		id:'123'
+   		     };
+   			//$.disthenInitTable(表格Id,数据请求链接,入参,显示参数,排序字段#顺序或倒序,表格中用到的数据字典键值#号隔开);
+   			// 入参格式json格式，例如:{name:'paopao',id:'123'}
+   			// 显示参数格式json数组，例如：
+   			// [{
+	   		//		field:'name',    ----参数名称
+	   		//		title:'姓名',    ----参数显示名称
+	   		//		type:'String',   ----参数数据类型，String,Date,Number,#字典键
+	   		//		required:true,   ----是否为空，true是不为空，false或者不填表示可为空
+	   		//		query:true       ----是否是查询参数，true是是查询参数，false或者不填表示不是查询参数
+   			//	}]
+   			$.disthenInitTable("tableId1","/table",query,options,'name#desc','sys_user_sex#run_status');
+   			
+   			$('#myDatepicker4').datetimepicker({
+   		        format: 'YYYY-MM-DD HH:mm:ss',
+   		        locale: moment.locale('zh-cn'),
+	   		    ignoreReadonly: true,
+	   	        allowInputToggle: true
+   		    });
+   		
+   		});
+   		
+   		//树样例  点击事件，在html中需要方法名对应
+   		function zOnClick(event,treeId,treeNode){
+   			alert("单激树点击事件样例"+event+treeId+treeNode);
+   		};
+   </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+  <html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+  <body>
+	<div style="margin-top: 200px">  
+	  <div class="row">
+	     <div class="col-sm-4 col-md-4 col-lg-4">
+	     	<a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	        <div id="statusInfo"><b>当前状态:离线</b></div>
+	       	<div id="temperature">temperature</div>
+	     </div>
+	     <div class="col-sm-8 col-md-8 col-lg-8">
+	         <div id="otherInfo"></div>
+	     </div>
+	  </div>
+	</div> 
+	
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/echarts.min.js}"></script>
+	<script th:src="@{/js/monitor/device/temperature.js}"></script>
+	
+  </body>
+</html>

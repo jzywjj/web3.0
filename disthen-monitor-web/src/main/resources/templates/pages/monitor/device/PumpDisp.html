@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+  <body>
+	<div>  
+	  <div class="row" style="height:500px;">
+	     <div class="col-md-6" style="text-align:center;padding-top:150px;">
+	      <p id="id" style="display:none" name="id" th:text="${id}" />
+	        <table style="margin: auto;">
+	          <tr>
+	             <td width="50%" rowspan="2" align="center"><img id="pumpImg" width="150px" height="150px" th:src="@{/img/cover/pump-stop.gif}"/></td>
+	             <td width="50%" align="left" valign="top">
+	                <a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	             	<div id="statusInfo" style="font-weight: bold;"></div>
+	             	<div id="waterLever" style="font-weight: bold;"></div>
+	                 <span><b>水泵控制器：</b></span><span id="pumpstatus" style="font-weight: bold;"></span><br>
+	                 <!-- <span id="runmodel"><b>&lt;处于手动控制模式&gt;</b></span><br> -->
+	                 <span><b>运行模式：</b></span><span id="runmodel" style="font-weight: bold;"></span><br> 
+	  	    	</td>
+	          </tr>
+	          <tr>
+	            <td width="100%" align="right">
+	                <a id="openLink"  style="display:block">开水泵</a>
+	  	    		<a id="closeLink" style="display:none">关水泵 </a>
+	  	    	</td>
+	          </tr>
+	          <tr>
+	               <td style="text-align: right;" height="50px;"><span><b>运行模式设置：</b></span></td>
+	               <td >
+	       				 <button id="manual" type="button" class="btn btn-sm btn-default" onclick="sendPumpCommand('manual')">手动模式</button>&nbsp;&nbsp;
+	          		     <button id="auto" type="button" class="btn btn-sm btn-primary" onclick="sendPumpCommand('auto')">自动模式</button>
+	               </td>
+	          </tr>
+	       </table>
+	     </div>
+	     <div class="col-md-6" style="display:none;height:300px;">
+	         <div id="otherInfo"></div>
+	     </div>
+	     <div class="col-md-6" style="padding-top:150px;display:none">
+	  			<div id="waterLevel" ></div>
+	  	 </div>
+	  </div>
+	  <!-- <div class="row"> -->
+	  		
+			<!-- <div class="col-sm-6 col-md-6 col-lg-6">
+					 <iframe id="dataframe" frameborder="0" scrolling="no"
+	  	    				marginheight="0" marginwidth="0" th:src="@{/historyData}"></iframe>
+			</div> -->
+	 <!--  </div> -->
+	</div> 
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/echarts.min.js}"></script>
+	<script th:src="@{/js/monitor/device/pump.js}"></script>
+  </body>
+</html>

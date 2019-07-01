@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+  <html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/bootstrap.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+  <body>
+	<div class="container-fluid">  
+	  <div class="row">
+	     <div class="col-xs-12 col-md-12 col-lg-12" style="text-align:center;padding-top:150px">
+	     <p id="id" style="display:none" name="id" th:text="${id}" />
+	        <table border="0" style="margin:auto">
+	        
+	          <tr>
+	             <td width="50%" rowspan="2">
+	             	<img id="doorImg" width="200px" height="200px" th:src="@{/img/cover/door-close.png}"/></td>
+	             <td width="50%" align="left" valign="top">
+	                 <a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	                 <div id="statusInfo" style="font-weight: bold;"></div>
+	                 <span><b>门禁状态：</b></span><span id="doorstatus" style="font-weight: bold;"></span><br>
+	  	    	</td>
+	          </tr>
+	          <tr>
+	          	<td width="100%" align="right">
+	                <a id="openLink"  style="display:block">开门</a>
+	  	    		<a id="closeLink"  style="display:none">关门 </a>
+	  	    	</td>
+	          </tr>
+	       </table>
+	     </div>
+	  </div>
+	</div> 
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/monitor/device/door.js}"></script>
+  </body>
+</html>

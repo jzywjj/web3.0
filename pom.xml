@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.disthen</groupId>
+	<artifactId>Integration</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>disthen-common</module>
+		<!-- <module>disthen-core</module> -->
+		<module>disthen-complex-api</module>
+		<module>disthen-complex-monitor</module>
+		<module>disthen-commons-web</module>
+		<module>disthen-complex-monitor-web</module>
+		<module>dis-server</module>
+		<module>disthen-bigdata</module>
+	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.1.3.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>1.2.10</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.phoenix</groupId>
+				<artifactId>phoenix-core</artifactId>
+				<version>4.14.0-cdh5.13.2</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>com.mysema.maven</groupId> <artifactId>apt-maven-plugin</artifactId> 
+				<version>1.1.3</version> <executions> <execution> <goals> <goal>process</goal> 
+				</goals> <configuration> <outputDirectory>target/generated-sources/java</outputDirectory> 
+				<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor> </configuration> 
+				</execution> </executions> <dependencies> <dependency> <groupId>com.querydsl</groupId> 
+				<artifactId>querydsl-apt</artifactId> <version>${querydsl.version}</version> 
+				</dependency> </dependencies> </plugin> -->
+		</plugins>
+
+	</build>
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>Releases</name>
+			<url>http://10.10.2.13:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>Snapshot</name>
+			<url>http://10.10.2.13:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>

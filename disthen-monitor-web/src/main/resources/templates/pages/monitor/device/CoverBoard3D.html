@@ -1,0 +1,74 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>井盖锁盖板</title>
+		<link href="${ctx}/static/css/monitor/cover/common.css" rel="stylesheet" type="text/css"/>
+		<link href="${ctx}/static/css/monitor/cmdbtn.css" rel="stylesheet" type="text/css"/>
+		<link href="${ctx}/plugins/x3dom/x3dom.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" id="theme" href="${ctx}/plugins/jquery-easyui-theme/${theme}/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/plugins/jquery-easyui-theme/icon.css" />
+	    <script src="${ctx}/plugins/jquery/2.0.3/jquery.js"></script>
+	    <script type="text/javascript" src="${ctx}/plugins/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="${ctx}/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<style>
+			html,body{margin: 0;padding: 0;}
+			canvas,x3d{border:none;}
+			.coordinate{position: absolute;left:0;bottom:0;width:110px;height: 125px;background:url(../../../static/images/monitor/cover/coverCoordinate.png) 0 15px  no-repeat transparent;}
+			.coordinate>span{text-align:center;position:absolute;width:40px;line-height: 25px;color: #0f0;font-weight: bold;font-size: 15px;}
+			.coordinate>span:AFTER{content: "°";}
+			.coordinate>.z-y{left:7px;top:51px;transform: rotate(-55deg);-webkit-transform: rotate(-55deg);}
+			.coordinate>.y-x{left:34px;top:98px;}
+			.coordinate>.x-z{left:59px;top:51px;transform: rotate(55deg);-webkit-transform: rotate(55deg);}
+			.coordinate>.-des{color: #666;font-size: 17px;width: 100%;left: 0;top: 5px;}
+		
+			.cover3d{margin: 0 200px 0 110px;height: 150pt;position: relative;}
+			.cover3d>.-des,.lever>.-des{bottom: 10px;left:0;width: 100%;text-align: center;position: absolute;color: #666;font-size: 17px;font-weight: bold;}
+		
+			.lever{position: absolute;right:0;bottom:0;width:150px;height: 175px;}
+			.lever>img{width:150px;height:150px}
+			
+			.cmd{position: absolute;right:150;bottom:0;width:60px;height: 80px;}
+		</style>
+	</head>
+	<body>
+	<a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	<div id="statusInfo"><b>当前状态:离线</b></div>
+	<div>
+		<div class="coordinate">
+			<span class="y-x"></span>
+			<span class="x-z"></span>
+			<span class="z-y"></span>
+			<span class="-des">倾角</span>
+		</div>
+		<div class="lever">
+			<img class="-img" src="../../../static/images/monitor/cover/cover-lever-off.gif" />
+			<span class="-des">锁杆关闭</span>
+		</div>
+		<div class="cmd">
+			<a id="openLink" onclick="sendCoverCommand('open')" style="display:none">开锁</a>
+	  	    <a id="closeLink" onclick="sendCoverCommand('close')" style="display:none">关锁 </a>
+		</div>
+		<div class="cover3d">
+			<span class="-des">井盖锁盖板关闭</span>
+		 
+		<div style="padding:25px 47px">	
+			<img id="oboard-off" alt="盖板关闭" src="${ctx}/static/images/obord-off.png" >
+		</div>
+	</div>
+	</div>
+	<div id="addDialog" class="easyui-dialog" data-options="closed:true,modal:true" style="width:200px;height:120px;">
+		<table class="formTable" align="center" style="margin: 5px;">
+			<tr>
+				<td width="50">口令：</td>
+				<td width="120">
+					<input id="password" name="password" type="password" class="easyui-textbox" required="true" data-options="width: 100"/> 
+				</td>
+			</tr>
+		</table>
+	</div>
+	</body>
+		<script type="text/javascript" src="${ctx}/plugins/x3dom/x3dom-full.js"></script>
+		<script type="text/javascript" src="${ctx}/static/js/monitor/device/common.js"></script>
+		<script src="${ctx}/static/js/monitor/device/coverboard3D.js"></script>
+</html>

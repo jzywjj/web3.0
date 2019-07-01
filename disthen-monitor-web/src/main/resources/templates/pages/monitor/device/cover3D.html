@@ -1,0 +1,122 @@
+<!DOCTYPE>
+<!-- <html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>3D井盖</title>
+		<link href="${ctx}/static/css/monitor/cover/common.css" rel="stylesheet" type="text/css"/>
+		<link href="${ctx}/static/css/monitor/cmdbtn.css" rel="stylesheet" type="text/css"/>
+		<link href="${ctx}/plugins/x3dom/x3dom.css" rel="stylesheet" type="text/css"/>
+		
+		<link rel="stylesheet" type="text/css" id="theme" href="${ctx}/plugins/jquery-easyui-theme/${theme}/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/plugins/jquery-easyui-theme/icon.css" />
+		
+	    <script src="${ctx}/plugins/jquery/2.0.3/jquery.js"></script>
+	    <script type="text/javascript" src="${ctx}/plugins/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="${ctx}/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+		
+		<style>
+			html,body{margin: 0;padding: 0;}
+			canvas,x3d{border:none;}
+			
+			.coordinate{position: absolute;left:0;bottom:0;width:110px;height: 125px;background:url(../../../static/images/monitor/cover/coverCoordinate.png) 0 15px  no-repeat transparent;}
+			.coordinate>span{text-align:center;position:absolute;width:40px;line-height: 25px;color: #0f0;font-weight: bold;font-size: 15px;}
+			.coordinate>span:AFTER{content: "°";}
+			.coordinate>.z-y{left:7px;top:51px;transform: rotate(-55deg);-webkit-transform: rotate(-55deg);}
+			.coordinate>.y-x{left:34px;top:98px;}
+			.coordinate>.x-z{left:59px;top:51px;transform: rotate(55deg);-webkit-transform: rotate(55deg);}
+			.coordinate>.-des{color: #666;font-size: 17px;width: 100%;left: 0;top: 5px;}
+		
+			.cover3d{margin: 0 200px 0 110px;height: 150pt;position: relative;text-align: center;}
+			.cover3d>img{width:166px;height:155px}
+			.cover3d>.-des,.lever>.-des{bottom: 10px;left:0;width: 100%;text-align: center;position: absolute;color: #666;font-size: 17px;font-weight: bold;}
+		
+			.lever{position: absolute;right:0;bottom:0;width:150px;height: 175px;}
+			.lever>img{width:150px;height:150px}
+			
+			.cmd{position: absolute;right:150;bottom:0;width:60px;height: 80px;}
+		</style>
+	</head> -->
+	
+	<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta charset="utf-8">
+	<head th:include="include :: header"></head>
+	<link th:href="@{/css/monitor/common.css}" rel="stylesheet"/>
+	<link th:href="@{/css/monitor/cmdbtn.css}" rel="stylesheet"/>
+	<link th:href="@{/libs/x3dom/x3dom.css}" rel="stylesheet"/>	
+	<link th:href="@{/libs/jquery-easyui-theme/metro-blue/easyui.css}" rel="stylesheet"/>	
+	<link th:href="@{/libs/jquery-easyui-theme/icon.css}" rel="stylesheet"/>
+	<style>
+			html,body{margin: 0;padding: 0;}
+			canvas,x3d{border:none;}			
+			.coordinate{position: absolute;left:180px;bottom:0;width:110px;height: 125px;}
+			.coordinate>span{text-align:center;position:absolute;width:40px;line-height: 25px;color: #0f0;font-weight: bold;font-size: 15px;}
+			.coordinate>span:AFTER{content: "°";}
+			.coordinate>.z-y{left:7px;top:58px;transform: rotate(-55deg);-webkit-transform: rotate(-55deg);}
+			.coordinate>.y-x{left:34px;top:105px;}
+			.coordinate>.x-z{left:59px;top:58px;transform: rotate(55deg);-webkit-transform: rotate(55deg);}
+			.coordinate>.-des{color: #666;font-size: 17px;width: 100%;left: 0;top: 5px;}
+			.coordinate>img{position: absolute;left:0;top:10px;width:110px;height: 125px;}
+		
+			.cover3d{margin: 0 200px 0 110px;margin-top:100px;height: 150pt;position: relative;text-align: center;}
+			.cover3d>img{width:166px;height:155px}
+			.cover3d>.-des,.lever>.-des{bottom: 10px;left:0;width: 100%;text-align: center;position: absolute;color: #666;font-size: 17px;font-weight: bold;}
+		
+			.lever{position: absolute;right:180px;bottom:0;width:150px;height: 175px;}
+			.lever>img{width:150px;height:150px}
+			
+			.cmd{position: absolute;/* right:500px; */bottom:0;width:60px;height: 80px;}
+			#statusInfo{
+				font-size:large;
+				padding-top:10px;
+				text-align:center;
+			}
+		</style>
+	<body>
+	<a href="" target="_blank" id="assetLink" style="display:none">关联资产</a>
+	<div id="statusInfo" style="margin-top: 50px"><b>当前状态:离线</b></div>
+	<p id="id" style="display:none" name="id" th:text="${id}" />
+	<div>
+		<div class="coordinate">
+			<span class="y-x"></span>
+			<span class="x-z"></span>
+			<span class="z-y"></span>
+			<span class="-des">倾角</span>
+			<img class="-img" th:src="@{/img/cover/coverCoordinate.png}" />
+		</div>
+		
+		<div class="lever">
+			<img id="lever" class="-img" th:src="@{/img/cover/cover-lever-off.gif}" />
+			<span class="-des">锁杆关闭</span>
+		</div>
+		
+		<div class="cmd">
+			<a id="openLink" style="display:block">开锁</a>
+	  	    <a id="closeLink" style="display:none">关锁 </a>
+		</div>
+		
+		<div class="cover3d">
+			<img id="conver" th:src="@{/img/cover/cover-off.png}" />
+			<span class="-des">井盖锁关闭</span>
+		</div>
+	</div>
+	
+	<div id="addDialog" class="easyui-dialog" data-options="closed:true,modal:true" style="width:260px;height:150px;">
+		<table class="formTable" align="center" style="margin: 5px;">
+			<tr>
+				<td width="50">口令：</td>
+				<td width="120">
+					<input id="password" name="password" type="password" class="easyui-textbox" required="true" data-options="width: 100"/> 
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/libs/x3dom/x3dom-full.js}"></script>
+	<script th:src="@{/js/monitor/device/common.js}"></script>
+	<script th:src="@{/js/monitor/device/cover3D.js}"></script>
+	<script th:src="@{/libs/easyui/jquery.easyui.min.js}"></script>
+	<script th:src="@{/libs/easyui/locale/easyui-lang-zh_CN.js}"></script>
+	</body>
+</html>

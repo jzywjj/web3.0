@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>首页</title>
+    <meta name="keywords" content="首页">
+    <meta name="description" content="首页">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <link th:href="@{favicon.ico}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{/ruoyi/css/ry-ui.css?v=3.1.0}" rel="stylesheet"/>
+    <style type="text/css">
+        .nav > li:hover .dropdown-menu {display: block;}
+        #content-main.max { height: calc(100% - 110px); overflow: hidden; width: 100%; height: 100%; left: 0px; position: absolute; top: 0px; z-index: 9998; margin: 0; }
+    </style>
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow: hidden" >
+<div id="wrapper">
+
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                         <img th:src="@{/img/logo.png}" alt="image"/></span>
+                    </div>
+                </li>
+                 <li class="active" >
+                	<a href="#">
+                		<i class="fa fa-video-camera"></i>
+                    	<span class="nav-label">监控设备</span> 
+                    	<span class="fa arrow"></span>
+                	</a>
+                   <ul class="nav nav-second-level collapse in" aria-expanded="true" style="" id="deviceTree">
+						<!-- <li class="active"><a class="menuItem" th:href="@{/GroundBox}">接地箱</a></li>                        
+                      	<li class="active"><a class="menuItem" th:href="@{/MDTS}">多点温度</a></li>
+                      	<li class="active"><a class="menuItem" th:href="@{/Cover}">电子井盖</a></li>
+                      	<li class="active"><a class="menuItem" th:href="@{/Door}">电控锁</a></li>
+                      	<li class="active"><a class="menuItem" th:href="@{/Fan}">风机</a></li>
+                      	<li class="active"><a class="menuItem" th:href="@{/Pump}">水泵</a></li>
+                      	<li class="active"><a class="menuItem" th:href="@{/Lamp}">照明</a></li>                      	
+                      	<li class="active"><a class="menuItem" th:href="@{/Infrared}">红外</a></li>
+                      	<li class="active"><a class="menuItem" th:href="@{/LED}">LED</a></li>
+                      	<li class="active"><a class="menuItem" th:href="@{/Gas}">气体采集</a></li> -->
+					</ul>
+                </li>
+                <li th:each="menu : ${menus}">
+                	<a href="#" th:if="${menu.parentId}==null">
+                		<i class="fa fa fa-bar-chart-o" th:class="${menu.iconCls}"></i>
+                    	<span class="nav-label" th:text="${menu.name}">一级菜单</span>
+                    	<span class="fa arrow"></span>
+                	</a>
+                    <ul class="nav nav-second-level collapse">                       
+                        <li th:each="cmenu : ${menus}">
+							<a th:if="${cmenu.parentId}==${menu.id}" class="menuItem" th:utext="${cmenu.name}" th:href="@{${cmenu.url}}">二级菜单</a>
+						</li>
+                    </ul>
+				
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+    
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation"
+                 style="margin-bottom: 0">
+                <div class="navbar-header">
+
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-default " href="#" title="收起菜单">
+                    	<i class="fa fa-bars"></i>
+                    </a>
+                </div>
+                <div id="warnMsg" class="ibox-content no-padding" style="display:none;width:350px;position: absolute; top:62px;border-style: none;z-index:9999;right:205px;border: 1px solid #cec2c2;">
+                     <div class="panel-body">
+                         <div class="panel-group" id="version" style="margin-bottom: 0;">
+                         	暂无通知
+                           <!-- <div class="panel panel-default" id="1">
+								<div class="panel-heading">
+								   <h5 class="panel-title">
+									   <a class="btnChick" text="/MDTS" data-index="2" msgId="1">110kV果松倪吴I回GIS直接接地箱（松茂变）接头温度过高</a><code class="pull-right">2018.12.03 13:30:21</code>
+								   </h5>
+								</div>
+							</div>
+							<div class="panel panel-default" id="2">
+								<div class="panel-heading">
+								   <h5 class="panel-title">
+									   <a class="btnChick" text="/Cover" data-index="2" msgId="2">110kV果松倪吴I回GIS直接接地箱（松茂变）井盖被打开</a><code class="pull-right">2018.10.08 23:30:21</code>
+								   </h5>
+								   <h5 class="panel-title"  style="text-align:right">
+									   <a class="btn btn-success">
+							                <i class="fa fa-minus"></i> 忽略
+							           </a>
+								   </h5>
+								</div>
+							</div>
+							<div class="panel panel-default" id="3">
+								<div class="panel-heading" text="/Infrared" data-index="2" msgId="3">
+								   <h5 class="panel-title">
+									   <a data-toggle="collapse" data-parent="#version" href="#v20" >110kV果松倪吴I回水泵</a><code class="pull-right">2018.10.08 23:30:21</code>
+								   </h5>
+								</div>
+								<div id="v20" class="panel-collapse collapse">
+									<div class="panel-body">
+									   <ol>
+									        <li>水泵爆炸</li>
+										</ol>
+									</div>
+								</div>
+							</div> -->
+                         </div>
+                     </div>
+                 </div>
+                <ul class="nav navbar-top-links navbar-right welcome-message">
+                	<li>
+                		<span id="msgCheck" onclick="msgCheck()">
+				             <a href="#" class="btn " >通知<span class="badge">0</span></a>
+	                    </span>
+                	</li>
+	                <li>
+	                    <span class="m-r-sm text-muted" style="font-size: large;font-weight: bold">综合监控平台</span>
+	                </li>
+	                <li><a id="fullScreen"><i class="fa fa-arrows-alt"></i>全屏</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row content-tabs">
+        </div>
+        
+        <a id="ax_close_max" class="ax_close_max" href="#" title="关闭全屏"> <i class="fa fa-times-circle-o"></i> </a>
+                    
+        <div class="row mainContent" id="content-main">
+          <!--   <iframe class="RuoYi_iframe" name="iframe0" width="100%" height="100%" data-id="/system/main"
+                    th:src="@{/GroundBox}" frameborder="0" seamless></iframe> -->
+            <!--  <iframe class="RuoYi_iframe" name="iframe0" width="100%" height="100%" data-id="/system/main"
+             th:src="@{/WebSocket}" frameborder="0" seamless></iframe> -->
+            <iframe class="RuoYi_iframe" name="iframe0" width="100%" height="100%" data-id="pages/tunnel/tunnel"
+                    th:src="@{pages/tunnel/tunnel/182/隧道}" frameborder="0" seamless></iframe>
+        </div>
+        <div class="footer">
+            <div class="pull-right">© [[${copyrightYear}]] Disthen Copyright </div>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+</div>
+<!-- 全局js -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript">
+	var prefix = "pages/tunnel";
+	var str = '';
+	
+	function msgCheck(){
+		var show = $("#warnMsg").css("display");
+		$("#warnMsg").css("display",show == "none"?"block":"none");
+	}
+	
+	//获取树对象
+	$(function(){	
+		 $.ajax({
+            type: "GET",
+            url: prefix+"/getTree",
+            async:false,
+            success: function(data){
+                str = data;
+            }
+        });
+		//var str = '[{"id":182,"dataType":"/pages/tunnel/tunnel","text":"隧道","name":"隧道","state":"closed","path":"隧道","children":[{"id":1019,"dataType":"/pages/tunnel/tunnelDetail","text":"松茂T吴家营","name":"松茂T吴家营","state":"closed","path":"隧道>松茂T吴家营","children":[{"id":1020,"dataType":"/pages/tunnel/tunnelDetail","text":"110kV果松倪吴I回","name":"110kV果松倪吴I回","state":"closed","path":"隧道>松茂T吴家营>110kV果松倪吴I回","children":[{"id":1737,"dataType":"GroundBox","text":"110kV果松倪吴I回GIS测温测压直接接地箱（松茂变）","name":"110kV果松倪吴I回GIS直接接地箱（松茂变）","path":"隧道>松茂T吴家营>110kV果松倪吴I回>110kV果松倪吴I回GIS直接接地箱（松茂变）","children":[],"url":null},{"id":1738,"dataType":"GroundBox","text":"110kV果松倪吴I回终端头保护接地箱","name":"110kV果松倪吴I回终端头保护接地箱","path":"隧道>松茂T吴家营>110kV果松倪吴I回>110kV果松倪吴I回终端头保护接地箱","children":[],"url":null},{"id":1822,"dataType":"GroundBox","text":"110kV果松倪吴I回（运行电流）","name":"110kV果松倪吴I回（运行电流）","path":"隧道>松茂T吴家营>110kV果松倪吴I回>110kV果松倪吴I回（运行电流）","children":[],"url":null}],"url":null},{"id":1022,"dataType":"/pages/tunnel/tunnelDetail","text":"110kV果松倪吴I回接头温度","name":"110kV果松倪吴I回接头温度","state":"closed","path":"隧道>松茂T吴家营>110kV果松倪吴I回接头温度","children":[{"id":1739,"dataType":"MDTS","text":"110kV果松倪吴I回GIS接头温度","name":"110kV果松倪吴I回GIS接头温度","path":"隧道>松茂T吴家营>110kV果松倪吴I回接头温度>110kV果松倪吴I回GIS接头温度","children":[],"url":null}],"url":null},{"id":1021,"dataType":"/pages/tunnel/tunnelDetail","text":"110kV果松倪吴II回","name":"110kV果松倪吴II回","state":"closed","path":"隧道>松茂T吴家营>110kV果松倪吴II回","children":[{"id":1740,"dataType":"GroundBox","text":"110kV果松倪吴II回GIS直接接地箱（松茂变）","name":"110kV果松倪吴II回GIS直接接地箱（松茂变）","path":"隧道>松茂T吴家营>110kV果松倪吴II回>110kV果松倪吴II回GIS直接接地箱（松茂变）","children":[],"url":null},{"id":1787,"dataType":"GroundBox","text":"110kV果松倪吴II回终端头保护接地箱","name":"110kV果松倪吴II回终端头保护接地箱","path":"隧道>松茂T吴家营>110kV果松倪吴II回>110kV果松倪吴II回终端头保护接地箱","children":[],"url":null},{"id":1824,"dataType":"GroundBox","text":"110kV果松倪吴II回（运行电流）","name":"110kV果松倪吴II回（运行电流）","path":"隧道>松茂T吴家营>110kV果松倪吴II回>110kV果松倪吴II回（运行电流）","children":[],"url":null}],"url":null}]}]}]';	
+		var list = JSON.parse(str);
+        var strTree = getTree(list);
+        $("#deviceTree").append(strTree);
+        
+        //localStorage.setItem('warnAttr', "");
+		//localStorage.setItem('countAttr', "0");
+        
+        //获取缓存通知
+        var warnAttr = localStorage.getItem('warnAttr');
+		var countAttr = parseInt(localStorage.getItem('countAttr'));
+		if(countAttr > 0){
+			$("#msgCheck").children("a").children("span").text(countAttr);
+			$("#msgCheck").children("a").addClass("btn-danger");
+			$("#version").html(warnAttr);
+		}else{
+			localStorage.setItem('countAttr', 0);
+		}
+          	
+	});
+	
+	//根据树对象生成树菜单
+	var count = 1;
+	function getTree(list){
+		var sst = '';
+		count++;
+		for(let i in list){
+			var type = "/monitor/"+getType(list[i].dataType,list[i].id,list[i].text);
+			if(list[i].children == null || list[i].children.length == 0){
+				sst += '<li>'+
+					   '<a class="menuItem" href="'+type+'" data-index="2">'+list[i].text+'</a>'+
+					   '</li>';
+				continue;
+			}else{
+				if(count <= 2){
+					sst += '<li>'+
+					   '<a href="'+type+'" class="btnChick" data-index="2">'+list[i].text+'<span class="fa arrow"></span></a>'+
+					   '<ul class="nav nav-third-level collapse">';
+				}else if(count == 3){
+					sst += '<li>'+
+					   '<a href="'+type+'" class="btnChick" data-index="2">'+list[i].text+'<span class="fa arrow"></span></a>'+
+					   '<ul class="nav nav-fourth-level collapse">';
+				}else{
+					sst += '<li>'+
+					   '<a href="'+type+'" class="btnChick" data-index="2">'+list[i].text+'<span class="fa arrow"></span></a>'+
+					   '<ul class="nav nav-five-level collapse">';
+				}
+				//console.info(count+"**"+sst);
+				sst += getTree(list[i].children);
+				sst += '</ul></li>';	
+			}
+		}
+		str = sst;
+		return str;
+	}
+	
+	/**
+	*	根据dataType跳转对应页面
+	*/
+	function getType(dataType,id,name){
+		if(dataType == null || dataType == ""){
+			return "pages/tunnel/tunnel/"+id+"/"+name;
+		}else if(dataType == "ND-Tunnel" || dataType == "ND-Line"){
+			return "pages/tunnel/tunnelInfo/"+id+"/"+name;
+		}else if(dataType == "ND-Group"){
+			return "pages/tunnel/tunnelDetail/"+id+"/"+name;
+		}else if(dataType == "GroundBox"){
+			return "GroundBox/"+id+"/";
+		}else if(dataType == "MDTS"){
+			return "MDTS/"+id+"/";
+		}else if(dataType == "Cover"){
+			return "Cover/"+id+"/";
+		}else if(dataType == "Door"){
+			return "Door/"+id+"/";
+		}else if(dataType == "Fan"){
+			return "Fan/"+id+"/";
+		}else if(dataType == "Pump"){
+			return "Pump/"+id+"/";
+		}else if(dataType == "Lamp"){
+			return "Lamp/"+id+"/";
+		}else if(dataType == "Infrared"){
+			return "Infrared/"+id+"/";
+		}else if(dataType == "LED"){
+			return "LED/"+id+"/";
+		}else if(dataType == "Gas"){
+			return "Gas/"+id+"/";
+		}else{
+			return "pages/tunnel/tunnel/"+id+"/"+name;
+		}
+	}
+</script>
+<script type="text/javascript">
+    var websocket = null;
+    //判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        //websocket = new WebSocket("ws://10.10.18.45:8088/wsAlarm");
+        websocket = new WebSocket("ws://localhost:8081/monitor/websocket");
+    }
+    else {
+        $.modal.msgError("当前浏览器 Not support websocket");
+    }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function () {
+        $.modal.msgError("WebSocket连接发生错误");
+    };
+
+    //连接成功建立的回调方法
+    websocket.onopen = function () {
+        console.info("WebSocket连接成功");
+    }
+
+    //接收到消息的回调方法
+    websocket.onmessage = function (event) {
+    	//1752#Door#门被打开#2019-02-01 10:10:10
+        var data = event.data;
+        var ss = data.split("#");
+        if(ss != null && ss.length > 0 && ss[0] != null && ss[0]!=""){
+	        id = ss[0];
+	        var url = getType(ss[1],ss[0],name);
+	        var id = Math.floor(Math.random()*10000+1);
+	        var str = '<div class="panel panel-default" id="'+id+'">'+
+						'<div class="panel-heading">'+
+						   '<h5 class="panel-title">'+
+							   '<a class="btnChick" text="'+url+'" data-index="2" msgId="'+id+'">'+ss[2]+'</a><code class="pull-right">'+ss[3]+'</code>'+
+						   '</h5>'+
+						   '<h5 class="panel-title"  style="text-align:right">'+
+							   '<a class="btn btn-success warnRemove" msgId="'+id+'">'+
+					                '<i class="fa fa-minus"></i> 忽略'+
+					           '</a>'+
+						   '</h5>'+
+						'</div>'+
+					'</div>';
+			var count = $("#msgCheck").children("a").children("span").text();
+			if(count == 0){
+				$("#version").html(str);
+			}else{
+				$("#version").append(str);
+			}
+	       	$("#msgCheck").children("a").children("span").text(parseInt(count)+1);
+	       			
+			$("#msgCheck").children("a").addClass("btn-danger");
+			
+			localStorage.setItem('warnAttr', $("#version").html());
+			var lc = localStorage.getItem('countAttr');
+			localStorage.setItem('countAttr', parseInt(lc)+1);
+		}
+    }
+
+    //连接关闭的回调方法
+    websocket.onclose = function () {
+        console.info("WebSocket连接关闭");
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+        closeWebSocket();
+    }
+    
+    //关闭WebSocket连接
+    function closeWebSocket() {
+        websocket.close();
+    }
+
+</script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/libs/blockUI/jquery.blockUI.js}"></script>
+<script src="http://tajs.qq.com/stats?sId=62048022"></script>
+<script th:src="@{/ruoyi/js/ry-ui.js?v=3.1.0}"></script>
+<script th:src="@{/ruoyi/index.js}"></script>
+<script th:src="@{/libs/fullscreen/jquery.fullscreen.js}"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".btnChick").click(function(e){
+			if(e.target == e.currentTarget) {
+				$('.btnChick').on('click', menuItem($(this)));
+			}
+		});
+		
+		$(".panel-body").on("click",".btnChick",function(){
+              $('.btnChick').on('click', menuItem($(this)));
+        });
+        
+        $(".panel-body").on("click",".warnRemove",function(){
+             var msgId = $(this).attr("msgId");
+        	 $("#"+msgId).remove();
+        	 $("#msgCheck").children("a").children("span").text(parseInt(localStorage.getItem('countAttr'))-1);
+       	 	 localStorage.setItem('warnAttr', $("#version").html());
+			 localStorage.setItem('countAttr', parseInt(localStorage.getItem('countAttr'))-1);
+			 if(localStorage.getItem('countAttr') == 0){
+				 $("#msgCheck").children("a").removeClass("btn-danger");
+				 $("#version").text("暂无消息");
+			 }
+        	 
+        	 
+        });
+		
+		$(".panel-heading").click(function(e){
+			if(e.target == e.currentTarget) {
+				$('.panel-title').on('click', menuItem($(this)));
+			}
+		});
+	
+	});
+	
+	//打开页面
+	function menuItem(pro) {
+	        // 获取标识数据
+        var dataUrl = pro.attr('href'),
+        dataIndex = pro.data('index'),
+        menuName = $.trim(pro.text()),
+        flag = true;
+        
+        //代表是消息提醒的跳转
+        if(dataUrl == null || dataUrl == undefined || dataUrl == ""){
+        	 dataUrl = pro.attr('text');
+        	 var msgId = pro.attr("msgId");
+        	 $("#"+msgId).remove();
+        	 var len = $("#version").children().length;
+        	 var count = $("#msgCheck").children("a").children("span").text();
+        	 if(count > 0){
+        	 	$("#msgCheck").children("a").children("span").text(parseInt(count-1));
+        	 	localStorage.setItem('warnAttr', $("#version").html());
+				localStorage.setItem('countAttr', parseInt(localStorage.getItem('countAttr'))-1);
+        	 }
+        	 if(len == 0){
+	        	$("#version").text("暂无消息");
+	        	localStorage.setItem('warnAttr', "");
+				localStorage.setItem('countAttr', "0");
+	        	$("#msgCheck").children("a").removeClass("btn-danger");
+        	 	$("#warnMsg").css("display","none");
+        	 }
+        	 
+        }
+        if (dataUrl == undefined || $.trim(dataUrl).length == 0) return false;
+        
+        //关闭全部选项卡
+        $('.page-tabs-content').children("[data-id]").not(":first").each(function() {
+            $('.RuoYi_iframe[data-id="' + $(this).data('id') + '"]').remove();
+            $(this).remove();
+        });
+        $('.page-tabs-content').children("[data-id]:first").each(function() {
+            $('.RuoYi_iframe[data-id="' + $(this).data('id') + '"]').show();
+            $(this).addClass("active");
+        });
+        $('.page-tabs-content').css("margin-left", "0");
+
+        // 选项卡菜单已存在
+        $('.menuTab').each(function() {
+            if (pro.data('id') == dataUrl) {
+                if (!pro.hasClass('active')) {
+                    pro.addClass('active').siblings('.menuTab').removeClass('active');
+                    scrollToTab(this);
+                    // 显示tab对应的内容区
+                    $('.mainContent .RuoYi_iframe').each(function() {
+                        if (pro.data('id') == dataUrl) {
+                            pro.show().siblings('.RuoYi_iframe').hide();
+                            return false;
+                        }
+                    });
+                }
+                flag = false;
+                return false;
+            }
+        });
+        // 选项卡菜单不存在
+        if (flag) {
+            var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-times-circle"></i></a>';
+            $('.menuTab').removeClass('active');
+
+            // 添加选项卡对应的iframe
+            var str1 = '<iframe class="RuoYi_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+            $('.mainContent').find('iframe.RuoYi_iframe').hide().parents('.mainContent').html(str1);
+            
+            $.modal.loading("数据加载中，请稍后...");
+            
+            $('.mainContent iframe:visible').load(function () {
+            	$.modal.closeLoading();
+            });
+            
+            // 添加选项卡
+            $('.menuTabs .page-tabs-content').html(str);
+        }
+        return false;
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!-- 单柱状图 -->
+<div th:fragment="graph_bar(linkurl,params)">
+	<div class="x_panel">
+       <div class="x_content">
+         <div id="graph_bar" style="width:100%; height:280px;"></div>
+       </div>
+     </div>
+     <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		data:result.data,
+	            		xkey:result.xkey,
+	            		ykeys:result.ykeys,
+	            		labels:result.labels
+	            	}
+	            	$.graph_bar(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 多柱状图 -->
+<div th:fragment="graph_bar_group(linkurl,params)">
+	 <div class="x_panel">
+        <div class="x_content">
+          <div id="graph_bar_group" style="width:100%; height:280px;"></div>
+        </div>
+      </div>
+     <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		data:result.data,
+	            		xkey:result.xkey,
+	            		ykeys:result.ykeys,
+	            		labels:result.labels
+	            	}
+	            	$.graph_bar_group(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 多柱状图带点击事件 -->
+<div th:fragment="graphx(linkurl,params)">
+	<div class="x_panel">
+      <div class="x_content">
+        <div id="graphx" style="width:100%; height:300px;" ></div>
+      </div>
+    </div>
+     <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		data:result.data,
+	            		xkey:result.xkey,
+	            		ykeys:result.ykeys,
+	            		labels:result.labels
+	            	}
+	            	$.graphx(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 环状图 -->
+<div th:fragment="graph_donut(linkurl,params)">
+	 <div class="x_panel">
+       <div class="x_content">
+         <div id="graph_donut" style="width:100%; height:300px;"></div>
+       </div>
+     </div>
+     <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		data:result.data
+	            	}
+	            	$.graph_donut(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 区域图 -->
+<div th:fragment="graph_area(linkurl,params)">
+	 <div class="x_panel">
+        <div class="x_content">
+          <div id="graph_area" style="width:100%; height:300px;"></div>
+        </div>
+      </div>
+      <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		data:result.data,
+	            		xkey:result.xkey,
+	            		ykeys:result.ykeys,
+	            		labels:result.labels
+	            	}
+	            	$.graph_area(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+<!-- 折线图 -->
+<div th:fragment="graph_line(linkurl,params)">
+	 <div class="x_panel">
+        <div class="x_content">
+          <div id="graph_line" style="width:100%; height:300px;"></div>
+        </div>
+      </div>
+      <script th:inline="javascript">
+		$(function() {
+			var url = [[${linkurl}]];
+	     	var params = [[${params}]];
+	     	var obj = eval('(' + params + ')');
+			$.ajax({
+	            type: "POST",
+	            url: url,
+	            dataType: "json",
+	            data:obj,
+	            success: function(result){
+	            	var op = {
+	            		data:result.data,
+	            		xkey:result.xkey,
+	            		ykeys:result.ykeys,
+	            		labels:result.labels
+	            	}
+	            	$.graph_line(op);
+	            }
+	        });
+		});
+     </script>
+</div>
+
+

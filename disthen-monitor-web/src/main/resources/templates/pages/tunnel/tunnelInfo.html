@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<p id="id" style="display:none" name="id" th:text="${id}" />
+	<label></label>
+	<p id="neme" style="font-size:x-large;padding-left:20px;" name="neme" th:text="${name}">
+	</p>
+    <div class="container-div ui-layout-center">
+		<div class="row">  
+	        <div class="col-sm-12 select-table table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true" class="table table-bordered"></table>
+			</div>
+		</div>
+	</div>
+	
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var prefix = ctx + "pages/tunnel";
+		var ids = $("#id").text();
+		var names = $("#neme").text();
+		$(function() {
+			$("#bootstrap-table").bootstrapTable({
+			    method: 'post',
+			    contentType: "application/x-www-form-urlencoded",
+			    cache: false,
+			    url: prefix + "/tunnelInfolist",
+           		queryParams:{
+           			id:ids,
+           			name:names
+           		},
+			    onLoadSuccess: function (data) {
+	                mergeCells(data, "name", 1, $('#bootstrap-table'));//行合并
+           		 },
+			    columns:[
+			        {
+			            field: 'name',
+			            title: '隧道名称/线路名称',
+			        },
+			        {
+			            field: 'type',
+			            title: '设备类型',
+			        },{
+			            field: 'sl',
+			            title: '数量',
+			            
+			        },{
+			            field: 'on',
+			            title: '在线数',
+			            
+			        },{
+			            field: 'off',
+			            title: '离线数',
+			            
+			        },{
+			            field: 'remark',
+			            title: '备注',
+			            
+			        }
+			    ]
+			});
+			//$.modal.warningMessage("123井盖报警","warning");
+
+		});
+		
+		mergeCells = function(data, fieldName, colspan, target) {
+	        var sort = Array();
+	        var num = 1;
+	        for (var i = 0; i < data.length - 1; i++) {
+	            for ( var prop in data[i]) {
+	                if (prop == fieldName) {
+	                    if (data[i][prop] == data[i + 1][prop]) {
+	                        num++;
+	                        if (i == data.length - 2) {
+	                            sort.push(num);
+	                        }
+	                    } else {
+	                        sort.push(num);
+	                        num = 1;
+	                    }
+	                    break;
+	                }
+	            }
+	        }
+	        var index = 0;
+	        for (var j = 0; j < sort.length; j++) {
+	            var count = sort[j];
+	            $(target).bootstrapTable('mergeCells', {
+	                index : index,
+	                field : fieldName,
+	                colspan : colspan,
+	                rowspan : count
+	            });
+	            index += count;
+	        }
+	    };
+	</script>
+</body>
+</html>

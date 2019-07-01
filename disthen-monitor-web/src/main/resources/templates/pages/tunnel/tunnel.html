@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<p id="id" style="display:none" name="id" th:text="${id}" />
+	<label></label>
+	<p id="neme" style="font-size:x-large;padding-left:20px;" name="neme" th:text="${name}">
+	</p>
+    <div class="container-div ui-layout-center">
+		<div class="row">  
+	        <div class="col-sm-12 select-table table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true" class="table table-bordered"></table>
+			</div>
+		</div>
+	</div>
+	
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var prefix = ctx + "pages/tunnel";
+		var ids = $("#id").text();
+		$(function() {
+			$("#bootstrap-table").bootstrapTable({
+			    method: 'post',
+			    contentType: "application/x-www-form-urlencoded",
+			    cache: false,
+			    url: prefix + "/list",
+           		search:true,
+           		queryParams:{
+           			id:ids
+           		},
+			    columns:[
+			   		{
+			            title: "序号",
+	                    formatter: function (value, row, index) {
+	                 	    return $.table.serialNumber(index);
+	                    }
+			        },
+			        {
+			            field: 'name',
+			            title: '隧道名称/线路名称',
+			        },
+			        {
+			            field: 'remark',
+			            title: '备注',
+			            
+			        }
+			    ]
+			});
+			
+
+		});
+		
+		/**
+	   	  * 合并行
+	     * @param data  原始数据（在服务端完成排序）
+	     * @param fieldName 合并属性名称数组
+	     * @param colspan 列数
+	     * @param target 目标表格对象
+	     */
+		function mergeCells(data, fieldName, colspan, target) {
+            if (data.length == 0) {
+                alert("不能传入空数据");
+                return;
+            }
+            var numArr = [];
+            var value = data[0][fieldName];
+            var num = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (value != data[i][fieldName]) {
+                    numArr.push(num);
+                    value = data[i][fieldName];
+                    num = 1;
+                    continue;
+                }
+                num++;
+            }
+            var merIndex = 0;
+            for (var i = 0; i < numArr.length; i++) {
+                $(target).bootstrapTable('mergeCells', { index: merIndex, field: fieldName, colspan: colspan, rowspan: numArr[i] })
+                merIndex += numArr[i];
+            }
+		}
+	</script>
+</body>
+</html>
